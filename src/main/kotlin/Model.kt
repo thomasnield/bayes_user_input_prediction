@@ -2,18 +2,17 @@ import javafx.collections.FXCollections
 import tornadofx.getProperty
 import tornadofx.property
 import java.lang.Math.exp
-import java.math.BigDecimal
 import java.time.LocalDate
 import kotlin.math.ln
 
 
-val categories = listOf("Grocery", "Utility", "Coffee", "Restaurants", "Travel", "Salary")
+val categories = listOf("Grocery", "Utility", "Healthcare", "Electronics", "Restaurants", "Travel")
 val transactions = FXCollections.observableArrayList<BankTransaction>()
 val k = .5
 
 class BankTransaction(
         val date: LocalDate,
-        val amount: BigDecimal,
+        val amount: Double,
         val memo: String,
         category: String? = null
 ) {
@@ -52,25 +51,28 @@ fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
 
     val memoWords = bankTransaction.memo.splitWords().toSet()
 
-    return categories.asSequence().map { c ->
-        val probIfCategory = wordsWithProbability.asSequence().filter { it.category == c }.map {
-            if (it.word in memoWords) {
-                ln(it.probBelongsToCategory)
-            } else {
-                ln(1.0 - it.probBelongsToCategory)
-            }
-        }.sum().let(::exp)
+    return categories.asSequence()
+            .filter { c->  transactions.count { it.category == c} > 0 }
+            .map { c ->
+                val probIfCategory = wordsWithProbability.asSequence().filter { it.category == c }.map {
+                    if (it.word in memoWords) {
+                        ln(it.probBelongsToCategory)
+                    } else {
+                        ln(1.0 - it.probBelongsToCategory)
+                    }
+                }.sum().let(::exp)
 
-        val probIfNotCategory = wordsWithProbability.asSequence().filter { it.category == c }.map {
-            if (it.word in memoWords) {
-                ln(it.notProbBelongsToCategory)
-            } else {
-                ln(1.0 - it.notProbBelongsToCategory)
-            }
-        }.sum().let(::exp)
+                val probIfNotCategory = wordsWithProbability.asSequence().filter { it.category == c }.map {
+                    if (it.word in memoWords) {
+                        ln(it.notProbBelongsToCategory)
+                    } else {
+                        ln(1.0 - it.notProbBelongsToCategory)
+                    }
+                }.sum().let(::exp)
 
-        CombinedProbability(category = c, probability = probIfCategory / (probIfCategory + probIfNotCategory))
-    }.sortedByDescending { it.probability }
+                CombinedProbability(category = c, probability = probIfCategory / (probIfCategory + probIfNotCategory))
+    }.filter { it.probability >= .3 }
+     .sortedByDescending { it.probability }
      .map { it.category }
      .firstOrNull()
 

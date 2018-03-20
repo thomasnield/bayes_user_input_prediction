@@ -1,0 +1,7 @@
+2018-03-13,12.69,WHOLEFDS HPK 10140            #Grocery
+2018-03-13,4.64,BIGGBY COFFEE #370             #Restaurants
+2018-03-13,14.23,AMAZON SALE                   #Electronics
+2018-03-10,5.40,AMAZON VIDEO ON DEMAND         #Entertainment
+2018-03-12,5.19,STARBUCKS COFFEE #370          #Restaurants
+2018-03-10,61.27,WHOLEFDS PLN 10030            #Grocery
+2018-03-09,3.21,AMAZON VIDEO ON DEMAND         #Entertainment
