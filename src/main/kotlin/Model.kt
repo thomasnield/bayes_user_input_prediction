@@ -6,7 +6,7 @@ import java.time.LocalDate
 import kotlin.math.ln
 
 
-val categories = listOf("Grocery", "Utility", "Healthcare", "Electronics", "Entertainment", "Coffee", "Travel")
+val categories = listOf("Grocery", "Utility", "Electronics", "Entertainment", "Coffee", "Restaurants","Travel")
 val transactions = FXCollections.observableArrayList<BankTransaction>()
 val k = .1
 
