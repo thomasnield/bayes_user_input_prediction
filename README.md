@@ -1,2 +1,10 @@
-# User Input Prediction
+# Bayes User Input Prediction
+
+This is a simple [Kotlin](http://kotlinlang.org/)/[TornadoFX](https://github.com/edvin/tornadofx) application that leverages Naive Bayes to categorize bank transactions.
+
+Input and categorize a few transactions, and the simple AI will start to predict the categories once it picks up probabilities for given keywords.
+
+Here is a recorded demo. The first three transactions did not have enough data to predict. But after the fourth transaction, the algorithm starts to make accurate predictions.
+
+![](demo_animation.gif)
 

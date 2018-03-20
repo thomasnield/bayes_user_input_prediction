@@ -17,6 +17,9 @@ class TransactionApp: App(TransactionView::class)
 class TransactionView: View() {
 
     override val root = borderpane {
+
+        title = "Bank Transaction Categorizer"
+
         center = tableview(transactions) {
             column("DATE", BankTransaction::date)
             column("AMOUNT", BankTransaction::amount)
