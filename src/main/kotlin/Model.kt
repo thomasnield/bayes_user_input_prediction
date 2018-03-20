@@ -73,7 +73,7 @@ fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
                 CombinedProbability(category = c, probability = probIfCategory / (probIfCategory + probIfNotCategory))
     }.filter { it.probability >= .1 }
      .sortedByDescending { it.probability }
-     .onEach { println(bankTransaction.memo + " -> " + it.category + " " + it.probability) }
+     .onEach { println(bankTransaction.memo.trim() + " -> " + it.category + " " + it.probability) }
      .map { it.category }
      .firstOrNull()
 
