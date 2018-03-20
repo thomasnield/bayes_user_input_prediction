@@ -6,9 +6,9 @@ import java.time.LocalDate
 import kotlin.math.ln
 
 
-val categories = listOf("Grocery", "Utility", "Healthcare", "Electronics", "Restaurants", "Travel")
+val categories = listOf("Grocery", "Utility", "Healthcare", "Electronics", "Entertainment", "Coffee", "Travel")
 val transactions = FXCollections.observableArrayList<BankTransaction>()
-val k = .5
+val k = .1
 
 class BankTransaction(
         val date: LocalDate,
@@ -52,7 +52,7 @@ fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
     val memoWords = bankTransaction.memo.splitWords().toSet()
 
     return categories.asSequence()
-            .filter { c->  transactions.count { it.category == c} > 0 }
+            .filter { c ->  transactions.count { it.category == c} > 0 && wordsWithProbability.any { it.word in memoWords } }
             .map { c ->
                 val probIfCategory = wordsWithProbability.asSequence().filter { it.category == c }.map {
                     if (it.word in memoWords) {
@@ -73,6 +73,7 @@ fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
                 CombinedProbability(category = c, probability = probIfCategory / (probIfCategory + probIfNotCategory))
     }.filter { it.probability >= .3 }
      .sortedByDescending { it.probability }
+     .onEach { println(it.category + " " + it.probability) }
      .map { it.category }
      .firstOrNull()
 
