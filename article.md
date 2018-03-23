@@ -2,7 +2,7 @@
 
 [Bayes' theorem](https://en.wikipedia.org/wiki/Bayes%27_theorem) is arguably one of the most-used building blocks in statistics and machine learning. While it has many complex applications, this simple formula is the backbone of so much real-world mathematical modeling we use everyday. From [diagnosing diseases](https://brilliant.org/wiki/bayesian-theory-in-science-and-math/#biomedical-test-results) to [improving time series forecasting](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/), Bayes has been crucial to solving many problems in the data science domain.
 
-In this article, we are going to look at a simple but powerful usage of [Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier), which combines several inferred probabilities of independent features into one probability. Naive Bayes is often used for text and document categorization, with the most common example being [email spam filtering](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). 
+We are going to look at a simple but powerful usage of [Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier), which combines several inferred probabilities of independent features into one probability. Naive Bayes is often used for text and document categorization, with the most common example being [email spam filtering](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). 
 
 In this article, we will see how Naive Bayes can greatly improve the usability of an app without using any data science libraries.
 
