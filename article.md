@@ -22,13 +22,13 @@ After perusing an [O'Reilly book on Bayes](https://www.safaribooksonline.com/lib
 
 ## Setup
 
-In this article I am going to use [Kotlin](https://kotlinlang.org/), an intuitive JVM language built by [JetBrains](https://www.jetbrains.com/) (the company that built Intellij IDEA, PyCharm, and other developer tools). Kotlin has rapidly rose to prominence after Google made it the [the official language for Android](https://kotlinlang.org/docs/reference/android-overview.html). It works with JVM libraries including Apache Spark, so if you tried to learn Scala or Java and found it was not for you, Kotlin may be worth a look. You can learn all about using Kotlin for Data Science purposes in the O'Reilly video [_From Data Science to Production with Kotlin_](https://www.safaribooksonline.com/library/view/from-data-science/9781491998205/). 
+In this article I am going to use [Kotlin](https://kotlinlang.org/), an intuitive JVM language built by [JetBrains](https://www.jetbrains.com/) (the company that built Intellij IDEA, PyCharm, and other developer tools). Kotlin has rapidly rose to prominence after Google made it the [the official language for Android](https://kotlinlang.org/docs/reference/android-overview.html). You can learn all about using Kotlin for Data Science purposes in the O'Reilly video [_From Data Science to Production with Kotlin_](https://www.safaribooksonline.com/library/view/from-data-science/9781491998205/). 
 
-To quickly set up a Kotlin environment, check out [the official "Getting Started" document](https://kotlinlang.org/docs/tutorials/getting-started.html). The only dependency you will need besides Kotlin std-lib 1.2.31 is [TornadoFX](https://tornadofx.io/), a desktop UI framework for Kotlin. We will build this example as a quick desktop app. 
+To quickly set up a Kotlin environment, check out [the official _Getting Started_ document](https://kotlinlang.org/docs/tutorials/getting-started.html). The only dependency you will need besides Kotlin's Standard Library is [TornadoFX](https://tornadofx.io/), a desktop UI framework for Kotlin. We will build this example as a quick desktop app. 
 
-If you do not want to use the Intellij IDEA IDE, You also have the option of using the [command line compiler](https://kotlinlang.org/docs/tutorials/command-line.html), or an automated build system like [Maven](https://kotlinlang.org/docs/reference/using-maven.html) or [Gradle](https://kotlinlang.org/docs/reference/using-gradle.html).
+If you do not want to use the Intellij IDEA, you also have the option of using the [command line compiler](https://kotlinlang.org/docs/tutorials/command-line.html), or an automated build system like [Maven](https://kotlinlang.org/docs/reference/using-maven.html) or [Gradle](https://kotlinlang.org/docs/reference/using-gradle.html).
 
-Whatever means you choose to build, create a new Kotlin project. Typically, you will write your source code files in a nested folder path `/src/main/kotlin/` within your project. 
+Whatever means you choose to build, create a new Kotlin project. 
 
 ## Building the Model 
 
