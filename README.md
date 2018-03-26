@@ -1,6 +1,6 @@
 # Naive Bayes User Input Prediction
 
-This is a simple [Kotlin](http://kotlinlang.org/)/[TornadoFX](https://github.com/edvin/tornadofx) application that leverages Naive Bayes to categorize bank transactions.
+This is a simple [Kotlin](http://kotlinlang.org/) application that leverages Naive Bayes to categorize bank transactions.
 
 Input and categorize a few transactions, and the simple AI will start to predict the categories once it picks up probabilities for given keywords.
 
