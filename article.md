@@ -160,8 +160,13 @@ You can even run this application to test it out. Click the "+" button to input 
 ![](https://i.imgur.com/lBhtjws.png)
 **Figure 2- Inputting transactions into the app**
 
-However, what we are going to focus on is having a predicted category assigned to each inputted `BankTransaction`. This will be implemented in our `likelyCategoryFor()` function which will take focus for the rest of this article. 
+However, what we are going to focus on is having a predicted category assigned to each inputted `BankTransaction`. This will be implemented in our `likelyCategoryFor()` function which will take focus for the rest of this article.
 
-##
+## Modeling The Solution
+
+Bayes
+
+$$P(B|A) = \dfrac{P(B) \cdot P(A|B)}{P(B) \cdot P(A|B) +
+ P(\overline{B}) \cdot P(A|\overline{B})}$$
 
 $$P(C_{test})$$
