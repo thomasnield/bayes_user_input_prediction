@@ -1,12 +1,10 @@
 import javafx.collections.FXCollections
-import tornadofx.getProperty
-import tornadofx.property
 import java.lang.Math.exp
 import java.time.LocalDate
 import kotlin.math.ln
 
 
-val categories = listOf("Grocery", "Utility", "Electronics", "Entertainment", "Coffee", "Restaurants","Travel")
+val categories = FXCollections.observableArrayList("Grocery", "Utility", "Electronics", "Entertainment", "Coffee", "Restaurants","Travel")
 val transactions = FXCollections.observableArrayList<BankTransaction>()
 val k = .1
 
@@ -16,10 +14,8 @@ class BankTransaction(
         val memo: String,
         category: String? = null
 ) {
-    var category by property<String?>(category?:estimatedCategory)
-    fun categoryProperty() = getProperty(BankTransaction::category)
-
-    val estimatedCategory get() = likelyCategoryFor(this)
+    // default category to a predicated category if it is not provided
+    var category  = category?:likelyCategoryFor(this)
 
     val words = memo.splitWords().toSet()
 }
@@ -31,11 +27,13 @@ data class CombinedProbability(val category: String, val probability: Double)
 fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
 
     val wordsWithProbability = transactions.asSequence()
-            .filter { it.category != null }
+            .filter { it.category != null } // only process transactions with labeled categories
             .flatMap { t ->
                 t.memo.splitWords()
-            }.distinct()
+            }.distinct() // only process distinct words
             .flatMap { w ->
+
+                // for each category, calculate each word's probability/not probability that it appears in that category
                 categories.asSequence()
                         .map { c ->
                             WordProbability(word=w,
@@ -47,8 +45,9 @@ fun likelyCategoryFor(bankTransaction: BankTransaction): String? {
                                             ((2*k) + transactions.count { it.category != c }.toDouble())
                                     )
                         }
-            }.toList()
+            }.toList() // collect probabilities into a list
 
+    // distinct the words in this bank transaction
     val memoWords = bankTransaction.memo.splitWords().toSet()
 
     return categories.asSequence()

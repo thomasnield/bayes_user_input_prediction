@@ -21,10 +21,10 @@ class TransactionView: View() {
         title = "Bank Transaction Categorizer"
 
         center = tableview(transactions) {
-            column("DATE", BankTransaction::date)
-            column("AMOUNT", BankTransaction::amount)
-            column("MEMO", BankTransaction::memo)
-            column("CATEGORY", BankTransaction::categoryProperty).useComboBox(categories.observable())
+            readonlyColumn("DATE", BankTransaction::date)
+            readonlyColumn("AMOUNT", BankTransaction::amount)
+            readonlyColumn("MEMO", BankTransaction::memo)
+            column("CATEGORY", BankTransaction::category).useComboBox(categories)
 
             isEditable = true
 
@@ -75,7 +75,6 @@ class TransactionView: View() {
                                         }
                                     }
                                 }
-
                             }
                         }
                         setResultConverter {
