@@ -1,7 +1,7 @@
 
 
 buildscript {
-    ext.kotlin_version = '1.2.21'
+    ext.kotlin_version = '1.2.31'
 
     repositories {
         mavenCentral()
@@ -18,9 +18,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.nield:kotlin-statistics:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile 'no.tornado:tornadofx:1.7.15'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 compileKotlin {
