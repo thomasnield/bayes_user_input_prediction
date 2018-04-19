@@ -62,7 +62,7 @@ class BankTransaction(
     // default category to a predicated category if it is not provided
     var category  = category?:likelyCategoryFor(this)
 
-    val words = memo.splitWords().toSet()
+    val words = memo.discretizeWords().toSet()
 }
 
 fun likelyCategoryFor(bankTransaction: BankTransaction): String?
