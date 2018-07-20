@@ -1,5 +1,9 @@
 # Naive Bayes User Input Prediction
 
+
+[WATCH VIDEO DEMO HERE](https://youtu.be/JLSdW60t898)
+
+
 This is a simple [Kotlin](http://kotlinlang.org/) application that leverages Naive Bayes to categorize bank transactions.
 
 NOTE: [Kotlin-Statistics](https://github.com/thomasnield/kotlin-statistics#naive-bayes-classifier) now has this feature in an easy-to-use API. 
