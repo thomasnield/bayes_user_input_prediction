@@ -20,6 +20,8 @@ class TransactionView: View() {
 
         title = "Bank Transaction Categorizer"
 
+        style = "-fx-font-size: 16pt; "
+
         center = tableview(transactions) {
             readonlyColumn("DATE", BankTransaction::date)
             readonlyColumn("AMOUNT", BankTransaction::amount)
@@ -49,7 +51,11 @@ class TransactionView: View() {
 
                         dialogPane.buttonTypes.addAll(ButtonType.OK, ButtonType.CANCEL)
 
+
+
                         dialogPane.content = form {
+                            style = "-fx-font-size: 16pt; "
+
                             fieldset {
                                 field("DATE") {
                                     datepicker(date)
