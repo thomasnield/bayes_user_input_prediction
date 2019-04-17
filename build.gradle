@@ -29,3 +29,16 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Kotlin Linear Regression',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'DashboardKt'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
