@@ -46,20 +46,27 @@ enum class ClassifierImplementation {
             return categories.asSequence()
                     .map { category ->
 
+                        val allWordsForCategory = transactions.asSequence()
+                                .filter { it.category == category }
+                                .flatMap { it.memo.discretizeWords().asSequence() }
+                                .distinct()
+                                .toList()
+                                .toTypedArray()
+
                         var bestLikelihood = -10_000_000.0
                         var b0 = .01
-                        val bX = words.asSequence().map { it to .01 }.toMap().toMutableMap()
+                        val bX = allWordsForCategory.asSequence().map { it to .01 }.toMap().toMutableMap()
 
                         fun sumBx(inputVariables: Map<String,Boolean>) =
-                                words.asSequence()
-                                        .map { bX[it]!! * (if (inputVariables[it]!!) 1.0 else 0.0) }
+                                allWordsForCategory.asSequence()
+                                        .map { bX[it]!! * (if (inputVariables[it] == true) 1.0 else 0.0) }
                                         .sum()
 
                         fun predictProbability(inputVariables: Map<String,Boolean>) =
                                 1.0 / (1 + exp(-(b0 + sumBx(inputVariables))))
 
                         fun predictProbability(inputWords: Set<String>) =
-                                words.asSequence()
+                                allWordsForCategory.asSequence()
                                         .map { w -> w to (w in inputWords) }
                                         .toMap()
                                         .let { predictProbability(it) }
@@ -73,21 +80,23 @@ enum class ClassifierImplementation {
                             // make random adjustment to two of the colors
                             when {
                                 selectedBeta == 0 -> b0 += adjust
-                                else -> bX.compute(words[selectedBeta-1]!!) { key, oldValue -> oldValue!! + adjust }
+                                else -> bX.compute(allWordsForCategory[selectedBeta-1]) { _, oldValue ->
+                                    (oldValue?: throw Exception("oldValue doesn't exist")) + adjust
+                                }
                             }
 
                             // calculate maximum likelihood
                             val trueEstimates = transactions.asSequence()
-                                    .filter { t ->  words.any { it in t.memo.discretizeWords() } && t.category == category }
+                                    .filter { t ->  t.category == category }
                                     .map { ln(predictProbability(it.memo.discretizeWords())) }
                                     .sum()
 
                             val falseEstimates = transactions.asSequence()
-                                    .filter { t ->  words.any { it in t.memo.discretizeWords() } && t.category != category }
+                                    .filter { t -> t.category != category }
                                     .map {  ln(1 - predictProbability(it.memo.discretizeWords())) }
                                     .sum()
 
-                            val likelihood = trueEstimates + falseEstimates
+                            val likelihood = exp(trueEstimates + falseEstimates)
 
                             if (bestLikelihood < likelihood) {
                                 bestLikelihood = likelihood
@@ -95,14 +104,13 @@ enum class ClassifierImplementation {
                                 // revert if no improvement happens
                                 when {
                                     selectedBeta == 0 -> b0 -= adjust
-                                    else -> bX.compute(words[selectedBeta-1]!!) { key, oldValue -> oldValue!! - adjust }
+                                    else -> bX.compute(allWordsForCategory[selectedBeta-1]!!) { key, oldValue -> oldValue!! - adjust }
                                 }
                             }
                         }
-                        category to ln(bestLikelihood)
+                        category to predictProbability(bankTransaction.memo.discretizeWords())
                     }.sortedByDescending { it.second }
-                    .onEach { println(it) }
-                    .filter { it.second > .10 }
+                    .toList().onEach { println(it) }.asSequence()
                     .firstOrNull()?.first
         }
     };
