@@ -1,6 +1,6 @@
-# Naive Bayes User Input Prediction
+# Naive Bayes/Logistic Regression User Input Prediction
 
-This is a simple [Kotlin](http://kotlinlang.org/) application that leverages Naive Bayes to categorize bank transactions.
+This is a simple [Kotlin](http://kotlinlang.org/) application that leverages Naive Bayes or logistic regression to categorize bank transactions.
 
 ![](demo_animation.gif)
 
