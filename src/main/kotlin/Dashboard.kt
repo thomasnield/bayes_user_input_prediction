@@ -38,63 +38,69 @@ class TransactionView: View() {
         left = toolbar {
             orientation = Orientation.VERTICAL
 
-            button("+") {
-                setOnAction {
+            hbox {
+                button("+") {
+                    setOnAction {
 
-                    val date = SimpleObjectProperty<LocalDate>()
-                    val amount = SimpleDoubleProperty()
-                    val memo = SimpleStringProperty()
+                        val date = SimpleObjectProperty<LocalDate>()
+                        val amount = SimpleDoubleProperty()
+                        val memo = SimpleStringProperty()
 
-                    val result = Dialog<BankTransaction?>().apply {
-                        title = "Enter Transaction"
-                        headerText = "Input a new transaction"
+                        val result = Dialog<BankTransaction?>().apply {
+                            title = "Enter Transaction"
+                            headerText = "Input a new transaction"
 
-                        dialogPane.buttonTypes.addAll(ButtonType.OK, ButtonType.CANCEL)
+                            dialogPane.buttonTypes.addAll(ButtonType.OK, ButtonType.CANCEL)
 
 
 
-                        dialogPane.content = form {
-                            style = "-fx-font-size: 16pt; "
+                            dialogPane.content = form {
+                                style = "-fx-font-size: 16pt; "
 
-                            fieldset {
-                                field("DATE") {
-                                    datepicker(date)
-                                }
-                                field("AMOUNT") {
-                                    textfield(amount)
-                                }
-                                field("MEMO") {
-                                    textfield(memo)
-                                }
-                                field {
-                                    button("CLIPBOARD") {
-                                        setOnAction {
-                                            try {
-                                                Clipboard.getSystemClipboard().string.split(",").also {
-                                                    date.value = LocalDate.parse(it[0])
-                                                    amount.value = it[1].toDouble()
-                                                    memo.value = it[2]
+                                fieldset {
+                                    field("DATE") {
+                                        datepicker(date)
+                                    }
+                                    field("AMOUNT") {
+                                        textfield(amount)
+                                    }
+                                    field("MEMO") {
+                                        textfield(memo)
+                                    }
+                                    field {
+                                        button("CLIPBOARD") {
+                                            setOnAction {
+                                                try {
+                                                    Clipboard.getSystemClipboard().string.split(",").also {
+                                                        date.value = LocalDate.parse(it[0])
+                                                        amount.value = it[1].toDouble()
+                                                        memo.value = it[2]
+                                                    }
+                                                } catch (e: Exception) {
+                                                    println("Invalid clipboard input")
                                                 }
-                                            } catch (e: Exception) {
-                                                println("Invalid clipboard input")
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
-                        setResultConverter {
-                            if (it == ButtonType.OK) {
-                                BankTransaction(date.value, amount.value, memo.value)
-                            } else null
-                        }
+                            setResultConverter {
+                                if (it == ButtonType.OK) {
+                                    BankTransaction(date.value, amount.value, memo.value)
+                                } else null
+                            }
 
-                        showAndWait()
-                    }.result
+                            showAndWait()
+                        }.result
 
-                    if (result != null)
-                        transactions += result
+                        if (result != null)
+                            transactions += result
+                    }
                 }
+
+                combobox(property = selectedClassifier,
+                        values = ClassifierImplementation.values().toList().observable()
+                )
             }
         }
     }

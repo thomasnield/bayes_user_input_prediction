@@ -20,7 +20,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile 'no.tornado:tornadofx:1.7.15'
-    compile 'org.nield:kotlin-statistics:1.1.2'
+    compile 'org.nield:kotlin-statistics:1.2.1'
 }
 
 compileKotlin {
