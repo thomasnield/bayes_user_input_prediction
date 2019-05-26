@@ -41,8 +41,6 @@ enum class ClassifierImplementation {
 
             val normalDistribution = NormalDistribution(0.0, 1.0)
 
-            val words = bankTransaction.memo.discretizeWords().toList().toTypedArray()
-
             return categories.asSequence()
                     .map { category ->
 
